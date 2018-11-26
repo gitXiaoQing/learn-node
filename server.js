@@ -6,17 +6,7 @@ function start (route, handle) {
         var postData = "";
         var pathname = url.parse(request.url).pathname;
         console.log('Request for ' + pathname + ' received');
-        
-        request.setEncoding("utf-8");
-
-        request.addListener("data", function (postDataChunk) {
-            postData += postDataChunk;
-            ocnsole.log("Received POST data chunk'" + postDataChunk + "'.");
-        });
-
-        request.addListener("end", function () {
-            route(handle, pathname, response, postData);
-        });
+        route(handle, pathname, response, request);
     }
 
     http.createServer(onRequest).listen(8888);
